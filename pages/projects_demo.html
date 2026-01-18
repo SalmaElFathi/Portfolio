@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Formations</title>
+    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .content-container {
+            width: 100%;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            min-height: 400px;
+        }
+
+        .video-wrapper {
+            width: 100%;
+            display: none;
+        }
+
+        .video-wrapper.active {
+            display: block;
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            max-height: 70vh;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-wrapper {
+            display: none;
+            position: relative;
+        }
+
+        .gallery-wrapper.active {
+            display: block;
+        }
+
+        .gallery-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 10px;
+            background: #f5f5f5;
+        }
+
+        .gallery-slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .gallery-slide {
+            min-width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .gallery-slide img {
+            max-width: 100%;
+            max-height: 70vh;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            object-fit: contain;
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(52, 152, 219, 0.9);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-nav:hover {
+            background: rgba(231, 76, 60, 0.9);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .gallery-nav.prev {
+            left: 10px;
+        }
+
+        .gallery-nav.next {
+            right: 10px;
+        }
+
+        .gallery-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ccc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background: #3498db;
+            width: 30px;
+            border-radius: 6px;
+        }
+
+        .slide-counter {
+            text-align: center;
+            margin-top: 15px;
+            color: #666;
+            font-weight: bold;
+        }
+
+        .project-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-size: 24px;
+        }
+
+        .loading-message {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+            font-size: 18px;
+        }
+
+        .loading-message i {
+            font-size: 40px;
+            color: #3498db;
+            margin-bottom: 20px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        .iframe-wrapper {
+            display: none;
+            width: 100%;
+        }
+
+        .iframe-wrapper.active {
+            display: block;
+        }
+
+        .iframe-wrapper iframe {
+            width: 100%;
+            height: 80vh;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .gallery-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+
+            .project-title {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li class="logo item"><span>P</span>ortfolio</li>
+            <li class="item"><a href="../home.html">About Me</a></li>
+            <li class="item"><a href="projects_demo.html">My Projects Demo</a></li>
+        </ul>
+        <button class="menu"><i class="fas fa-bars"></i></button>
+    </nav>
+    <hr>
+    
+    <div class="main">
+        <aside>
+            <ul>
+                <li><a href="#" class="demo" 
+                       data-type="video" 
+                       data-src="../images/PFA.mp4"
+                       data-title="Application mobile FSTS">
+                    Application mobile dédiée aux actualités et formations de la FSTS
+                </a></li>
+                
+                <li><a href="#" class="demo" 
+                       data-type="gallery" 
+                       data-images='["../images/NetDiag/login.png", "../images/NetDiag/reset password.jpg", "../images/NetDiag/register.png","../images/NetDiag/admin.jpg","../images/NetDiag/home.png","../images/NetDiag/network.png","../images/NetDiag/devices.jpg","../images/NetDiag/users.png","../images/NetDiag/tickets.png"]'
+                       data-title="Gestion de Diagnostic Réseau">
+                    Gestion de Diagnostic Réseau et de Tickets
+                </a></li>
+                
+                <li><a href="#" class="demo" 
+                       data-type="video" 
+                       data-src="../images/Présentation de projet Pfe.mp4"
+                       data-title="Gestion d'emplois">
+                    PFE de licence : application de gestion d'emplois
+                </a></li>
+                
+                <li><a href="#" class="demo" 
+                       data-type="gallery" 
+                       data-images='["../images/biblio1.png", "../images/biblio2.png", "../images/biblio3.png", "../images/biblio4.png"]'
+                       data-title="Gestion de bibliothèque">
+                    Application web de gestion de bibliothèque
+                </a></li>
+                
+                <li><a href="#" class="demo" 
+                       data-type="gallery" 
+                       data-images='["../images/spring1.png", "../images/spring2.png", "../images/spring3.png"]'
+                       data-title="Spring Boot CI/CD">
+                    Application Spring Boot de gestion de produits avec CI/CD et monitoring
+                </a></li>
+            </ul>
+        </aside>
+   
+        <div class="section" id="projects_demo">
+            <div class="content-container">
+                <h2 class="project-title" id="projectTitle">Sélectionnez un projet</h2>
+                
+                <div class="video-wrapper" id="videoWrapper">
+                    <video controls id="projectVideo"></video>
+                </div>
+                
+                <div class="gallery-wrapper" id="galleryWrapper">
+                    <div class="gallery-container">
+                        <button class="gallery-nav prev" id="prevBtn">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        
+                        <div class="gallery-slides" id="gallerySlides"></div>
+                        
+                        <button class="gallery-nav next" id="nextBtn">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="gallery-indicators" id="indicators"></div>
+                    <div class="slide-counter" id="slideCounter"></div>
+                </div>
+                
+                <div class="iframe-wrapper" id="iframeWrapper">
+                    <iframe id="projectIframe"></iframe>
+                </div>
+                
+                <div class="loading-message" id="loadingMessage">
+                    <i class="fas fa-spinner"></i>
+                    <p>Cliquez sur un projet pour le visualiser</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentSlide = 0;
+        let totalSlides = 0;
+        let currentImages = [];
+
+        const videoWrapper = document.getElementById('videoWrapper');
+        const galleryWrapper = document.getElementById('galleryWrapper');
+        const iframeWrapper = document.getElementById('iframeWrapper');
+        const loadingMessage = document.getElementById('loadingMessage');
+        const projectTitle = document.getElementById('projectTitle');
+        const projectVideo = document.getElementById('projectVideo');
+        const projectIframe = document.getElementById('projectIframe');
+        const gallerySlides = document.getElementById('gallerySlides');
+        const indicators = document.getElementById('indicators');
+        const slideCounter = document.getElementById('slideCounter');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const demoLinks = document.querySelectorAll('.demo');
+
+        function hideAllContent() {
+            videoWrapper.classList.remove('active');
+            galleryWrapper.classList.remove('active');
+            iframeWrapper.classList.remove('active');
+            loadingMessage.style.display = 'none';
+        }
+
+        function showVideo(src, title) {
+            hideAllContent();
+            projectTitle.textContent = title;
+            projectVideo.src = src;
+            videoWrapper.classList.add('active');
+        }
+
+        function createGallery(images, title) {
+            hideAllContent();
+            projectTitle.textContent = title;
+            currentImages = images;
+            totalSlides = images.length;
+            currentSlide = 0;
+
+            gallerySlides.innerHTML = '';
+            images.forEach((imgSrc, index) => {
+                const slide = document.createElement('div');
+                slide.className = 'gallery-slide';
+                slide.innerHTML = `<img src="${imgSrc}" alt="Screenshot ${index + 1}">`;
+                gallerySlides.appendChild(slide);
+            });
+
+            indicators.innerHTML = '';
+            images.forEach((_, index) => {
+                const indicator = document.createElement('div');
+                indicator.className = `indicator ${index === 0 ? 'active' : ''}`;
+                indicator.addEventListener('click', () => goToSlide(index));
+                indicators.appendChild(indicator);
+            });
+
+            updateSlideCounter();
+            galleryWrapper.classList.add('active');
+        }
+
+        function showIframe(src, title) {
+            hideAllContent();
+            projectTitle.textContent = title;
+            projectIframe.src = src;
+            iframeWrapper.classList.add('active');
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            const offset = -index * 100;
+            gallerySlides.style.transform = `translateX(${offset}%)`;
+            
+            document.querySelectorAll('.indicator').forEach((ind, i) => {
+                ind.classList.toggle('active', i === index);
+            });
+            
+            updateSlideCounter();
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            goToSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            goToSlide(currentSlide);
+        }
+
+        function updateSlideCounter() {
+            slideCounter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+        }
+
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+
+        document.addEventListener('keydown', (e) => {
+            if (galleryWrapper.classList.contains('active')) {
+                if (e.key === 'ArrowLeft') prevSlide();
+                if (e.key === 'ArrowRight') nextSlide();
+            }
+        });
+
+        demoLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const type = this.getAttribute('data-type');
+                const title = this.getAttribute('data-title');
+                
+                demoLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                if (type === 'video') {
+                    const src = this.getAttribute('data-src');
+                    showVideo(src, title);
+                } else if (type === 'gallery') {
+                    const imagesJson = this.getAttribute('data-images');
+                    const images = JSON.parse(imagesJson);
+                    createGallery(images, title);
+                } else if (type === 'iframe') {
+                    const src = this.getAttribute('data-src');
+                    showIframe(src, title);
+                }
+            });
+        });
+
+        const menuBtn = document.querySelector('.menu');
+        const navUl = document.querySelector('nav ul');
+        
+        menuBtn.addEventListener('click', () => {
+            navUl.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
