@@ -113,7 +113,7 @@ aside li{
     height: 400px;
     margin: 40px auto;
     perspective: 1000px;
-    transform: rotate(25deg);
+  /*  transform: rotate(25deg);*/
 
 }
 
@@ -133,7 +133,7 @@ aside li{
     object-fit: cover;
     position: absolute;
     top: 20px;
-    left: 20px;
+    left: 10px;
     clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
     animation: float 5s ease-in-out infinite;
 
