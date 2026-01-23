@@ -1,56 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mes formations</title>
-    <link rel="stylesheet" href="../css/home.css">
+    <title>Mes Formations</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #ffffff; }
+        nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding: 20px 60px; z-index: 1000; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: 700; color: #ffffff; }
+        .logo span { color: #3b82f6; }
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav ul li a { color: #a0a0a0; text-decoration: none; font-size: 15px; font-weight: 500; }
+        .menu { display: none; background: none; border: none; color: white; font-size: 24px; cursor: pointer; }
+        aside { position: fixed; left: 0; top: 80px; width: 250px; height: calc(100vh - 80px); background: rgba(15, 15, 15, 0.8); backdrop-filter: blur(10px); border-right: 1px solid rgba(255, 255, 255, 0.1); padding: 40px 0; }
+        aside ul { list-style: none; }
+        aside ul li a { display: block; padding: 15px 30px; color: #a0a0a0; text-decoration: none; font-size: 15px; font-weight: 500; border-left: 3px solid transparent; transition: all 0.3s ease; }
+        aside ul li a:hover, aside ul li a.active { color: #ffffff; background: rgba(59, 130, 246, 0.1); border-left-color: #3b82f6; }
+        .main { margin-left: 250px; margin-top: 80px; padding: 60px 80px; }
+        .section { max-width: 1200px; margin: 0 auto; }
+        .titre { font-size: 42px; font-weight: 800; margin-bottom: 40px; background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .line { width: 100px; height: 4px; background: #3b82f6; margin-bottom: 50px; }
+        .part { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 30px; margin-bottom: 25px; transition: all 0.3s ease; }
+        .part:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(59, 130, 246, 0.3); transform: translateX(10px); }
+        .part h3 { color: #ffffff; font-size: 20px; margin-bottom: 10px; font-weight: 600; }
+        .part span { color: #a0a0a0; font-size: 14px; }
+        .part p { color: #a0a0a0; margin-top: 10px; }
+        .part p a { color: #3b82f6; text-decoration: none; }
+        .part p a:hover { color: #60a5fa; text-decoration: underline; }
+        @media (max-width: 1024px) { 
+            .main { margin-left: 0; padding: 40px 30px; } 
+            aside { transform: translateX(-100%); z-index: 999; } 
+            aside.active { transform: translateX(0); } 
+            .menu { display: block; } 
+            nav { padding: 20px 30px; }
+            nav ul { 
+                position: absolute;
+                top: 70px;
+                right: 0;
+                background: rgba(10, 10, 10, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                gap: 0;
+                width: 250px;
+                border-left: 1px solid rgba(255, 255, 255, 0.1);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                padding: 20px 0;
+            }
+            nav ul.active { transform: translateX(0); }
+            nav ul li { width: 100%; }
+            nav ul li a { display: block; padding: 15px 30px; border-left: 3px solid transparent; }
+            nav ul li a:hover { background: rgba(59, 130, 246, 0.1); border-left-color: #3b82f6; }
+        }
+    </style>
 </head>
 <body>
-     <nav>
+    <nav>
+        <div class="logo item"><span>P</span>ortfolio</div>
         <ul>
-            <li class="logo item"><span>P</span>ortforlio</li>
-            <li class="item"><a href="../index.html">About Me </a></li>
-            <li class="item"><a href="projects_demo.html">My Projects Demo</a></li>
-            
- </ul>
-        <button class="menu"><i class="fas fa-bars"></i></button>
-    </nav>    <hr>
-    <div class="main">
-        <aside>
-            <ul>
-                <li><a href="../index.html">Home</a></li>
+            <li><a href="../index.html">À propos</a></li>
+            <li><a href="projects_demo.html">Démos de mes projets</a></li>
+        </ul>
+        <button class="menu" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+    </nav>
+    <aside id="sidebar">
+        <ul>
+            <li><a href="../index.html">Accueil</a></li>
             <li><a href="experiences.html">Expériences</a></li>
-            <li><a href="formations.html">Formations</a></li>
-            <li> <a href="projets.html">Projets</a> </li>
-            <li><a href="competences.html">Compétences</a> </li>
+            <li><a href="formations.html" class="active">Formations</a></li>
+            <li><a href="projets.html">Projets</a></li>
+            <li><a href="competences.html">Compétences</a></li>
             <li><a href="certifications.html">Certifications</a></li>
-                 </ul>
-        </aside>
-   
-    <div class="section " id="formations">
-        <h2 class="titre ">Formations</h2>
-        <div class="line"></div>
-        <div class="part">
-            <h3>Master en Réseaux et Systèmes Informatiques <span>2024 - 2026</span></h3>
-            <p><a href="https://www.fsts.ac.ma/">Faculté des Sciences et Techniques, Settat</a></p>
-        </div>
-        <div class="part">
-            <h3>Licence en Systèmes d'Information et Transformation Digitale <span>2023 - 2024</span></h3>
-            <p><a href="https://www.fsts.ac.ma/">Faculté des Sciences et Techniques, Settat</a></p>
-        </div>
-        <div class="part">
-            <h3>DEUST Mathématiques, Informatique et Physique <span>2021 - 2024</span></h3>
-            <p><a href="https://www.fsts.ac.ma/">Faculté des Sciences et Techniques, Settat</a></p>
-        </div>
-        <div class="part">
-            <h3>Baccalauréat <span>2020 - 2021</span></h3>
-            <p><a href="#">Lycée El Qods</a></p>
+        </ul>
+    </aside>
+    <div class="main">
+        <div class="section">
+            <h2 class="titre">Formations</h2>
+            <div class="line"></div>
+            <div class="part">
+                <h3>Master en Réseaux et Systèmes Informatiques <span>2024 - 2026</span></h3>
+                <p><a href="https://www.fsts.ac.ma/" target="_blank">Faculté des Sciences et Techniques, Settat</a></p>
+            </div>
+            <div class="part">
+                <h3>Licence en Systèmes d'Information et Transformation Digitale <span>2023 - 2024</span></h3>
+                <p><a href="https://www.fsts.ac.ma/" target="_blank">Faculté des Sciences et Techniques, Settat</a></p>
+            </div>
+            <div class="part">
+                <h3>DEUST Mathématiques, Informatique et Physique <span>2021 - 2023</span></h3>
+                <p><a href="https://www.fsts.ac.ma/" target="_blank">Faculté des Sciences et Techniques, Settat</a></p>
+            </div>
+            <div class="part">
+                <h3>Baccalauréat <span>2020 - 2021</span></h3>
+                <p>Lycée El Qods</p>
+            </div>
         </div>
     </div>
-    </div>
-    <script src="../js/home.js"></script>
+    <script>
+        function toggleSidebar() { 
+            document.getElementById('sidebar').classList.toggle('active'); 
+        }
+        
+        document.querySelector('.menu').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('active');
+        });
+        
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav ul');
+            const menuBtn = document.querySelector('.menu');
+            if (!nav.contains(event.target) && !menuBtn.contains(event.target)) {
+                nav.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>

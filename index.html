@@ -1,70 +1,211 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salma El Fathi</title>
-    <link rel="stylesheet" href="css/home.css">
+    <title>Salma El Fathi - Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="js/auth.js" defer></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #ffffff; overflow-x: hidden; }
+        
+        nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding: 20px 60px; z-index: 1000; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: 700; color: #ffffff; }
+        .logo span { color: #3b82f6; }
+        nav ul { display: flex; gap: 40px; list-style: none; align-items: center; }
+        nav ul li a { color: #a0a0a0; text-decoration: none; font-size: 15px; font-weight: 500; transition: all 0.3s ease; position: relative; }
+        nav ul li a:hover { color: #ffffff; }
+        nav ul li a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: #3b82f6; transition: width 0.3s ease; }
+        nav ul li a:hover::after { width: 100%; }
+        .menu { display: none; background: none; border: none; color: white; font-size: 24px; cursor: pointer; }
+        
+        aside { position: fixed; left: 0; top: 80px; width: 250px; height: calc(100vh - 80px); background: rgba(15, 15, 15, 0.8); backdrop-filter: blur(10px); border-right: 1px solid rgba(255, 255, 255, 0.1); padding: 40px 0; overflow-y: auto; }
+        aside ul { list-style: none; }
+        aside ul li { margin-bottom: 5px; }
+        aside ul li a { display: block; padding: 15px 30px; color: #a0a0a0; text-decoration: none; font-size: 15px; font-weight: 500; transition: all 0.3s ease; border-left: 3px solid transparent; }
+        aside ul li a:hover, aside ul li a.active { color: #ffffff; background: rgba(59, 130, 246, 0.1); border-left-color: #3b82f6; }
+        
+        .main { margin-left: 250px; margin-top: 80px; min-height: calc(100vh - 80px); }
+        
+        header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; padding: 80px 60px; align-items: center; max-width: 1400px; margin: 0 auto; }
+        
+        .greeting { color: #3b82f6; font-size: 16px; font-weight: 600; margin-bottom: 20px; letter-spacing: 2px; text-transform: uppercase; }
+        
+        .section_nom { margin-bottom: 30px; }
+        .nom { font-size: 64px; font-weight: 800; line-height: 1.1; background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; }
+        .nom-complete { display: block; }
+        .nom-el { color: #3b82f6; -webkit-text-fill-color: #3b82f6; }
+        
+        .job-title { font-size: 20px; font-weight: 600; color: #3b82f6; margin-bottom: 20px; letter-spacing: 0.5px; }
+        
+        .description { font-size: 16px; line-height: 1.8; color: #a0a0a0; margin-bottom: 40px; max-width: 600px; }
+        
+        .contact { margin: 30px 0; }
+        .contact ul { display: flex; gap: 15px; list-style: none; flex-wrap: wrap; }
+        .contact ul li a { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50%; color: #a0a0a0; font-size: 18px; transition: all 0.3s ease; }
+        .contact ul li a:hover { background: #3b82f6; border-color: #3b82f6; color: #ffffff; transform: translateY(-5px); box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3); }
+        
+        .cv-btn { display: inline-block; padding: 16px 40px; background: #3b82f6; color: #ffffff; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 16px; border: none; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3); margin-top: 10px; }
+        .cv-btn:hover { background: #2563eb; transform: translateY(-3px); box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4); }
+        
+        .profile-container { position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 450px; height: 450px; margin: 0 auto; }
+        
+        .hexagon-mask { width: 100%; height: 100%; position: absolute; clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(1, 212, 240, 0.2)); animation: floatHex 5s ease-in-out infinite; z-index: 1; }
+        
+        .profile { width: 92%; height: 92%; object-fit: cover; position: absolute; top: 20px; left: 15px; clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); animation: floatHex 5s ease-in-out infinite; transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); filter: brightness(1.05) contrast(1.05); z-index: 2; }
+        
+        .profile-container:hover .hexagon-mask { background: linear-gradient(135deg, rgba(59, 130, 246, 0.5), rgba(1, 212, 240, 0.3)); }
+        .profile-container:hover .profile { transform: scale(1.03); filter: brightness(1.1) contrast(1.1); }
+        
+        @keyframes floatHex { 
+            0%, 100% { transform: translateY(0) rotate(0deg); } 
+            50% { transform: translateY(-15px) rotate(2deg); } 
+        }
+        
+        .profile-bg { position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%); border-radius: 50%; filter: blur(40px); z-index: 0; animation: pulse 4s ease-in-out infinite; }
+        
+        @keyframes pulse { 
+            0%, 100% { transform: scale(1); opacity: 0.5; } 
+            50% { transform: scale(1.1); opacity: 0.8; } 
+        }
+        
+        @media (max-width: 1200px) {
+            header { gap: 40px; padding: 60px 40px; }
+            .nom { font-size: 56px; }
+        }
+        
+        @media (max-width: 1024px) { 
+            .main { margin-left: 0; } 
+            aside { transform: translateX(-100%); transition: transform 0.3s ease; z-index: 999; } 
+            aside.active { transform: translateX(0); } 
+            header { grid-template-columns: 1fr; padding: 50px 30px; gap: 50px; text-align: center; }
+            .content-section { display: flex; flex-direction: column; align-items: center; }
+            .description { text-align: center; }
+            .contact ul { justify-content: center; }
+            .nom { font-size: 48px; }
+            .menu { display: block; } 
+            nav { padding: 20px 30px; } 
+            nav ul { 
+                position: absolute;
+                top: 70px;
+                right: 0;
+                background: rgba(10, 10, 10, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                gap: 0;
+                width: 250px;
+                border-left: 1px solid rgba(255, 255, 255, 0.1);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                padding: 20px 0;
+            }
+            nav ul.active {
+                transform: translateX(0);
+            }
+            nav ul li {
+                width: 100%;
+            }
+            nav ul li a {
+                display: block;
+                padding: 15px 30px;
+                border-left: 3px solid transparent;
+            }
+            nav ul li a:hover,
+            nav ul li a.active {
+                background: rgba(59, 130, 246, 0.1);
+                border-left-color: #3b82f6;
+            }
+            nav ul li a::after {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) { 
+            .nom { font-size: 42px; }
+            .description { font-size: 15px; } 
+            header { padding: 40px 20px; } 
+            .profile-container { width: 300px; height: 300px; }
+            .greeting { font-size: 14px; }
+            nav { padding: 15px 20px; }
+            .logo { font-size: 20px; }
+        }
+        
+        @media (max-width: 480px) {
+            .nom { font-size: 36px; }
+            .profile-container { width: 250px; height: 250px; }
+            .contact ul li a { width: 44px; height: 44px; font-size: 16px; }
+        }
+    </style>
 </head>
 <body>
     <nav>
+        <div class="logo"><span>P</span>ortfolio</div>
         <ul>
-            <li class="logo"><span>P</span>ortforlio</li>
-            <li><a href="index.html">About Me </a></li>
-            <li><a href="pages/projects_demo.html">My Projects Demo</a></li>
-             </ul>
-        <button class="menu"><i class="fas fa-bars"></i></button>
-    </nav>     <hr>
+            <li><a href="index.html">À propos</a></li>
+            <li><a href="pages/projects_demo.html">Démos de mes projets</a></li>
+        </ul>
+        <button class="menu" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+    </nav>
+    
+    <aside id="sidebar">
+        <ul>
+            <li><a href="index.html" class="active">Accueil</a></li>
+            <li><a href="pages/experiences.html">Expériences</a></li>
+            <li><a href="pages/formations.html">Formations</a></li>
+            <li><a href="pages/projets.html">Projets</a></li>
+            <li><a href="pages/competences.html">Compétences</a></li>
+            <li><a href="pages/certifications.html">Certifications</a></li>
+        </ul>
+    </aside>
+    
     <div class="main">
-        <aside>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="pages/experiences.html">Expériences</a></li>
-                <li><a href="pages/formations.html">Formations</a></li>
-                <li> <a href="pages/projets.html">Projets</a> </li>
-                <li><a href="pages/competences.html">Compétences</a> </li>
-                <li><a href="pages/certifications.html">Certifications</a></li>
-            </ul>
-        </aside>
-   
-    <header>
-        <div>
-         <div class="section_nom">
-             <h1 class="nom">Salma </h1>
-             <h1 class="nom">El </h1>
-             <h1 class="nom">Fathi</h1>
-         </div>
-         
-         <p>Étudiante en Master Réseaux et Systèmes Informatiques à la Faculté des Sciences et Techniques de Settat, 
-             passionnée par l’informatique, notamment le développement informatique et Dev Ops.
-             Je suis constamment à la recherche d’opportunités pour mettre en pratique mes connaissances à travers des projets concrets.</p>
-            <div class="contact">
-             <ul>
-                <li><a href="tel:+212629513949"><i class="fas fa-phone"></i></a></li>
-                <li> <a href="mailto:elfathi.sal.fst@uhp.ac.ma"><i class="fas fa-envelope"></i></a></li>
-                <li><a href="https://www.linkedin.com/in/salma-el-fathi-58021b288" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-                <li> <a href="https://github.com/SalmaElFathi" target="_blank"><i class="fab fa-github"></i></a></li>
-                <li><a href="https://www.google.com/maps?q=Settat,Maroc" target="_blank"><i class="fas fa-location-dot"></i></a>
-                </li>
-            </ul>
-        </div>
-             <button class="cv-btn" >
-                <a href="images/Salma_EL_FATHI_CV.pdf" download="CV.pdf">download CV </a></button>
+        <header>
+            <div class="content-section">
+                <div class="greeting">Bienvenue sur mon portfolio</div>
+                <div class="section_nom">
+                    <h1 class="nom nom-complete">Salma <span class="nom-el">El Fathi</span></h1>
+                </div>
+                <p class="job-title">Développeuse Full-Stack & Passionnée DevOps</p>
+                <p class="description">Étudiante en Master Réseaux et Systèmes Informatiques à la Faculté des Sciences et Techniques de Settat, passionnée par l'informatique, notamment le développement informatique et DevOps. Je suis constamment à la recherche d'opportunités pour mettre en pratique mes connaissances à travers des projets concrets.</p>
+                <div class="contact">
+                    <ul>
+                        <li><a href="tel:+212629513949" title="Téléphone"><i class="fas fa-phone"></i></a></li>
+                        <li><a href="mailto:elfathi.sal.fst@uhp.ac.ma" title="Email"><i class="fas fa-envelope"></i></a></li>
+                        <li><a href="https://www.linkedin.com/in/salma-el-fathi-58021b288" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a></li>
+                        <li><a href="https://github.com/SalmaElFathi" target="_blank" title="GitHub"><i class="fab fa-github"></i></a></li>
+                        <li><a href="https://www.google.com/maps?q=Settat,Maroc" target="_blank" title="Localisation"><i class="fas fa-location-dot"></i></a></li>
+                    </ul>
+                </div>
+                <a href="images/Salma_EL_FATHI_CV.pdf" download="CV_Salma_El_Fathi.pdf" class="cv-btn">Télécharger CV</a>
             </div>
-        <div class="profile-container">
-            <div class="hexagon-mask"></div>
-
-            <img class="profile" src="images/photo.png" alt="Photo de profil">
-
-        </div>
-
-     </header>
+            
+            <div class="profile-container">
+                <div class="profile-bg"></div>
+                <div class="hexagon-mask"></div>
+                <img class="profile" src="images/photo.png" alt="Photo de profil">
+            </div>
+        </header>
     </div>
- 
-
-     <script src="js/router.js"></script>
-     <script src="js/home.js"></script>
-    </body>
+    
+    <script>
+        function toggleSidebar() { 
+            document.getElementById('sidebar').classList.toggle('active'); 
+        }
+        
+        // Toggle navigation menu on mobile
+        document.querySelector('.menu').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('active');
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav ul');
+            const menuBtn = document.querySelector('.menu');
+            if (!nav.contains(event.target) && !menuBtn.contains(event.target)) {
+                nav.classList.remove('active');
+            }
+        });
+    </script>
+</body>
 </html>

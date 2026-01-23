@@ -1,78 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mes Compétences</title>
-    <link rel="stylesheet" href="../css/home.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 20px;
-            padding: 30px 20px;
-        }
-
-        .skill-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(236, 240, 241, 0.8));
-            border-radius: 15px;
-            padding: 25px 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .skill-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .skill-card:hover::before {
-            left: 100%;
-        }
-
-        .skill-card:hover {
-            transform: translateY(-2px) scale(1.01);
-            border-color: var(--secondary);
-            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.2);
-        }
-
-        .skill-icon {
-            font-size: 48px;
-            transition: all 0.3s ease;
-        }
-
-        .skill-card:hover .skill-icon {
-            transform: scale(1.15) rotate(5deg);
-        }
-
-        .skill-name {
-            font-weight: 600;
-            font-size: 13px;
-            color: var(--dark);
-            text-align: center;
-            transition: color 0.3s ease;
-        }
-
-        .skill-card:hover .skill-name {
-            color: var(--secondary);
-        }
-
-        /* Couleurs spécifiques pour chaque technologie */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #ffffff; overflow-x: hidden; }
+        nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding: 20px 60px; z-index: 1000; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: 700; color: #ffffff; }
+        .logo span { color: #3b82f6; }
+        nav ul { display: flex; gap: 40px; list-style: none; align-items: center; }
+        nav ul li a { color: #a0a0a0; text-decoration: none; font-size: 15px; font-weight: 500; transition: all 0.3s ease; }
+        .menu { display: none; background: none; border: none; color: white; font-size: 24px; cursor: pointer; }
+        aside { position: fixed; left: 0; top: 80px; width: 250px; height: calc(100vh - 80px); background: rgba(15, 15, 15, 0.8); backdrop-filter: blur(10px); border-right: 1px solid rgba(255, 255, 255, 0.1); padding: 40px 0; overflow-y: auto; }
+        aside ul { list-style: none; }
+        aside ul li a { display: block; padding: 15px 30px; color: #a0a0a0; text-decoration: none; font-size: 15px; font-weight: 500; transition: all 0.3s ease; border-left: 3px solid transparent; }
+        aside ul li a:hover, aside ul li a.active { color: #ffffff; background: rgba(59, 130, 246, 0.1); border-left-color: #3b82f6; }
+        .main { margin-left: 250px; margin-top: 80px; min-height: calc(100vh - 80px); padding: 60px 80px; }
+        .section { max-width: 1200px; margin: 0 auto; }
+        .titre { font-size: 42px; font-weight: 800; margin-bottom: 40px; background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .line { width: 100px; height: 4px; background: #3b82f6; margin-bottom: 50px; }
+        .skills-category { margin-bottom: 50px; }
+        .category-title { color: #3b82f6; font-size: 24px; margin-bottom: 25px; font-weight: 600; }
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 20px; }
+        .skill-card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 25px 15px; display: flex; flex-direction: column; align-items: center; gap: 12px; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .skill-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent); transition: left 0.5s ease; }
+        .skill-card:hover::before { left: 100%; }
+        .skill-card:hover { transform: translateY(-5px) scale(1.05); border-color: #3b82f6; box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3); }
+        .skill-icon { font-size: 48px; transition: all 0.3s ease; }
+        .skill-card:hover .skill-icon { transform: scale(1.15) rotate(5deg); }
+        .skill-name { font-weight: 600; font-size: 13px; color: #a0a0a0; text-align: center; transition: color 0.3s ease; }
+        .skill-card:hover .skill-name { color: #3b82f6; }
         .skill-html { color: #E34F26; }
         .skill-css { color: #1572B6; }
         .skill-js { color: #F7DF1E; }
@@ -93,310 +53,153 @@
         .skill-uml { color: #9C27B0; }
         .skill-prometheus { color: #E6522C; }
         .skill-grafana { color: #F46800; }
-
-        /* Dark theme */
-        body.dark-theme .skill-card {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        body.dark-theme .skill-card:hover {
-            border-color: var(--secondary);
-            box-shadow: 0 8px 20px rgba(168, 192, 221, 0.2);
-        }
-
-        body.dark-theme .skill-name {
-            color: #e0e0e0;
-        }
-
-        body.dark-theme .skill-card:hover .skill-name {
-            color: var(--secondary);
-        }
-
-        .skills-category {
-            margin-bottom: 40px;
-        }
-
-        .category-title {
-            color: var(--secondary);
-            font-size: 20px;
-            margin-bottom: 20px;
-            padding-left: 15px;
-            border-left: 4px solid var(--accent);
-            display: inline-block;
-        }
-
-        @media (max-width: 768px) {
-            .skills-grid {
-                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-                gap: 15px;
-                padding: 20px 10px;
+        @media (max-width: 1024px) { 
+            .main { margin-left: 0; padding: 40px 30px; } 
+            aside { transform: translateX(-100%); transition: transform 0.3s ease; z-index: 999; } 
+            aside.active { transform: translateX(0); } 
+            .menu { display: block; } 
+            nav { padding: 20px 30px; }
+            nav ul { 
+                position: absolute;
+                top: 70px;
+                right: 0;
+                background: rgba(10, 10, 10, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                gap: 0;
+                width: 250px;
+                border-left: 1px solid rgba(255, 255, 255, 0.1);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                padding: 20px 0;
             }
-
-            .skill-card {
-                padding: 20px 10px;
-            }
-
-            .skill-icon {
-                font-size: 36px;
-            }
-
-            .skill-name {
-                font-size: 11px;
-            }
-
-            .category-title {
-                font-size: 18px;
-            }
+            nav ul.active { transform: translateX(0); }
+            nav ul li { width: 100%; }
+            nav ul li a { display: block; padding: 15px 30px; border-left: 3px solid transparent; }
+            nav ul li a:hover { background: rgba(59, 130, 246, 0.1); border-left-color: #3b82f6; }
         }
+        @media (max-width: 768px) { .skills-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 15px; } .skill-card { padding: 20px 10px; } .skill-icon { font-size: 36px; } .skill-name { font-size: 11px; } .category-title { font-size: 20px; } }
     </style>
 </head>
 <body>
     <nav>
+        <div class="logo item"><span>P</span>ortfolio</div>
         <ul>
-            <li class="logo item"><span>P</span>ortfolio</li>
-            <li class="item"><a href="../index.html">About Me</a></li>
-            <li class="item"><a href="projects_demo.html">My Projects Demo</a></li>
+            <li><a href="../index.html">À propos</a></li>
+            <li><a href="projects_demo.html">Démos de mes projets</a></li>
         </ul>
-        <button class="menu"><i class="fas fa-bars"></i></button>
+        <button class="menu" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
     </nav>
-    <hr>
-    
+    <aside id="sidebar">
+        <ul>
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="experiences.html">Expériences</a></li>
+            <li><a href="formations.html">Formations</a></li>
+            <li><a href="projets.html">Projets</a></li>
+            <li><a href="competences.html" class="active">Compétences</a></li>
+            <li><a href="certifications.html">Certifications</a></li>
+        </ul>
+    </aside>
     <div class="main">
-        <aside>
-            <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="experiences.html">Expériences</a></li>
-                <li><a href="formations.html">Formations</a></li>
-                <li><a href="projets.html">Projets</a></li>
-                <li><a href="competences.html">Compétences</a></li>
-                <li><a href="certifications.html">Certifications</a></li>
-            </ul>
-        </aside>
-   
-        <div class="section" id="competences">
+        <div class="section">
             <h2 class="titre">Compétences</h2>
             <div class="line"></div>
             
-            <!-- Langages -->
             <div class="skills-category">
                 <h3 class="category-title">Langages</h3>
                 <div class="skills-grid">
-                    <div class="skill-card">
-                        <i class="fab fa-html5 skill-icon skill-html"></i>
-                        <span class="skill-name">HTML5</span>
-                    </div>
-                    
-                    <div class="skill-card">
-                        <i class="fab fa-css3-alt skill-icon skill-css"></i>
-                        <span class="skill-name">CSS</span>
-                    </div>
-                    
-                    <div class="skill-card">
-                        <i class="fab fa-js skill-icon skill-js"></i>
-                        <span class="skill-name">JavaScript</span>
-                    </div>
-                    
-                    <div class="skill-card">
-                        <i class="fab fa-java skill-icon skill-java"></i>
-                        <span class="skill-name">Java</span>
-                    </div>
-
-                    <div class="skill-card">
-                        <i class="fas fa-code skill-icon skill-java"></i>
-                        <span class="skill-name">Jakarta EE</span>
-                    </div>
-
-                    <div class="skill-card">
-                        <i class="fab fa-python skill-icon skill-python"></i>
-                        <span class="skill-name">Python</span>
-                    </div>
+                    <div class="skill-card"><i class="fab fa-html5 skill-icon skill-html"></i><span class="skill-name">HTML5</span></div>
+                    <div class="skill-card"><i class="fab fa-css3-alt skill-icon skill-css"></i><span class="skill-name">CSS</span></div>
+                    <div class="skill-card"><i class="fab fa-js skill-icon skill-js"></i><span class="skill-name">JavaScript</span></div>
+                    <div class="skill-card"><i class="fab fa-java skill-icon skill-java"></i><span class="skill-name">Java</span></div>
+                    <div class="skill-card"><i class="fas fa-code skill-icon skill-java"></i><span class="skill-name">Jakarta EE</span></div>
+                    <div class="skill-card"><i class="fab fa-python skill-icon skill-python"></i><span class="skill-name">Python</span></div>
                 </div>
             </div>
 
-            <!-- Frameworks -->
             <div class="skills-category">
                 <h3 class="category-title">Frameworks</h3>
                 <div class="skills-grid">
-                    <div class="skill-card">
-                        <i class="fab fa-react skill-icon skill-react"></i>
-                        <span class="skill-name">React.js</span>
-                    </div>
-
-                    <div class="skill-card">
-                        <i class="fab fa-node-js skill-icon skill-node"></i>
-                        <span class="skill-name">Node.js</span>
-                    </div>
-                    
-                    <div class="skill-card">
-                        <i class="fas fa-leaf skill-icon skill-spring"></i>
-                        <span class="skill-name">Spring Boot</span>
-                    </div>
-                    
-                    <div class="skill-card">
-                        <i class="fas fa-mobile-alt skill-icon skill-flutter"></i>
-                        <span class="skill-name">Flutter</span>
-                    </div>
-
-                    <div class="skill-card">
-                        <i class="fab fa-bootstrap skill-icon skill-bootstrap"></i>
-                        <span class="skill-name">Bootstrap</span>
-                    </div>
-
-                    <div class="skill-card">
-                        <i class="fas fa-robot skill-icon skill-python"></i>
-                        <span class="skill-name">FastAPI</span>
-                    </div>
+                    <div class="skill-card"><i class="fab fa-react skill-icon skill-react"></i><span class="skill-name">React.js</span></div>
+                    <div class="skill-card"><i class="fab fa-node-js skill-icon skill-node"></i><span class="skill-name">Node.js</span></div>
+                    <div class="skill-card"><i class="fas fa-leaf skill-icon skill-spring"></i><span class="skill-name">Spring Boot</span></div>
+                    <div class="skill-card"><i class="fas fa-mobile-alt skill-icon skill-flutter"></i><span class="skill-name">Flutter</span></div>
+                    <div class="skill-card"><i class="fab fa-bootstrap skill-icon skill-bootstrap"></i><span class="skill-name">Bootstrap</span></div>
+                    <div class="skill-card"><i class="fas fa-robot skill-icon skill-python"></i><span class="skill-name">FastAPI</span></div>
                 </div>
             </div>
 
-            <!-- Bases de données -->
             <div class="skills-category">
                 <h3 class="category-title">Bases de données</h3>
                 <div class="skills-grid">
-                    <div class="skill-card">
-                        <i class="fas fa-database skill-icon skill-mysql"></i>
-                        <span class="skill-name">SQL</span>
-                    </div>
-
-                    <div class="skill-card">
-                        <i class="fas fa-database skill-icon skill-mysql"></i>
-                        <span class="skill-name">MySQL</span>
-                    </div>
-                    
-                    <div class="skill-card">
-                        <i class="fas fa-database skill-icon skill-mysql"></i>
-                        <span class="skill-name">PostgreSQL</span>
-                    </div>
-
-                    <div class="skill-card">
-                        <i class="fas fa-database skill-icon skill-mysql"></i>
-                        <span class="skill-name">Oracle</span>
-                    </div>
-
-                    <div class="skill-card">
-                        <i class="fab fa-envira skill-icon skill-mongodb"></i>
-                        <span class="skill-name">MongoDB</span>
-                    </div>
+                    <div class="skill-card"><i class="fas fa-database skill-icon skill-mysql"></i><span class="skill-name">SQL</span></div>
+                    <div class="skill-card"><i class="fas fa-database skill-icon skill-mysql"></i><span class="skill-name">MySQL</span></div>
+                    <div class="skill-card"><i class="fas fa-database skill-icon skill-mysql"></i><span class="skill-name">PostgreSQL</span></div>
+                    <div class="skill-card"><i class="fas fa-database skill-icon skill-mysql"></i><span class="skill-name">Oracle</span></div>
+                    <div class="skill-card"><i class="fab fa-envira skill-icon skill-mongodb"></i><span class="skill-name">MongoDB</span></div>
                 </div>
             </div>
 
-            <!-- DevOps & Cloud -->
             <div class="skills-category">
                 <h3 class="category-title">DevOps & Cloud</h3>
                 <div class="skills-grid">
-                    <div class="skill-card">
-                        <i class="fab fa-docker skill-icon skill-docker"></i>
-                        <span class="skill-name">Docker</span>
-                    </div>
-                    
-                    <div class="skill-card">
-                        <i class="fas fa-dharmachakra skill-icon skill-kubernetes"></i>
-                        <span class="skill-name">Kubernetes</span>
-                    </div>
-
-                    <div class="skill-card">
-                        <i class="fas fa-ship skill-icon skill-kubernetes"></i>
-                        <span class="skill-name">Helm</span>
-                    </div>
-
-                    <div class="skill-card">
-                        <i class="fab fa-jenkins skill-icon skill-jenkins"></i>
-                        <span class="skill-name">Jenkins</span>
-                    </div>
-
-                    <div class="skill-card">
-                        <i class="fas fa-code-branch skill-icon skill-jenkins"></i>
-                        <span class="skill-name">CI/CD</span>
-                    </div>
-
-                    <div class="skill-card">
-                        <i class="fab fa-github skill-icon skill-git"></i>
-                        <span class="skill-name">GitHub Actions</span>
-                    </div>
-
-                    <div class="skill-card">
-                        <i class="fas fa-chart-line skill-icon skill-prometheus"></i>
-                        <span class="skill-name">Prometheus</span>
-                    </div>
-
-                    <div class="skill-card">
-                        <i class="fas fa-chart-area skill-icon skill-grafana"></i>
-                        <span class="skill-name">Grafana</span>
-                    </div>
+                    <div class="skill-card"><i class="fab fa-docker skill-icon skill-docker"></i><span class="skill-name">Docker</span></div>
+                    <div class="skill-card"><i class="fas fa-dharmachakra skill-icon skill-kubernetes"></i><span class="skill-name">Kubernetes</span></div>
+                    <div class="skill-card"><i class="fas fa-ship skill-icon skill-kubernetes"></i><span class="skill-name">Helm</span></div>
+                    <div class="skill-card"><i class="fab fa-jenkins skill-icon skill-jenkins"></i><span class="skill-name">Jenkins</span></div>
+                    <div class="skill-card"><i class="fas fa-code-branch skill-icon skill-jenkins"></i><span class="skill-name">CI/CD</span></div>
+                    <div class="skill-card"><i class="fab fa-github skill-icon skill-git"></i><span class="skill-name">GitHub Actions</span></div>
+                    <div class="skill-card"><i class="fas fa-chart-line skill-icon skill-prometheus"></i><span class="skill-name">Prometheus</span></div>
+                    <div class="skill-card"><i class="fas fa-chart-area skill-icon skill-grafana"></i><span class="skill-name">Grafana</span></div>
                 </div>
             </div>
 
-            <!-- Systèmes & Infrastructure -->
             <div class="skills-category">
                 <h3 class="category-title">Systèmes & Infrastructure</h3>
                 <div class="skills-grid">
-                    <div class="skill-card">
-                        <i class="fab fa-linux skill-icon skill-linux"></i>
-                        <span class="skill-name">Linux</span>
-                    </div>
-
-                    <div class="skill-card">
-                        <i class="fab fa-ubuntu skill-icon skill-linux"></i>
-                        <span class="skill-name">Ubuntu</span>
-                    </div>
-
-                    <div class="skill-card">
-                        <i class="fab fa-centos skill-icon skill-linux"></i>
-                        <span class="skill-name">CentOS</span>
-                    </div>
-
-                    <div class="skill-card">
-                        <i class="fab fa-windows skill-icon skill-mysql"></i>
-                        <span class="skill-name">Windows</span>
-                    </div>
+                    <div class="skill-card"><i class="fab fa-linux skill-icon skill-linux"></i><span class="skill-name">Linux</span></div>
+                    <div class="skill-card"><i class="fab fa-ubuntu skill-icon skill-linux"></i><span class="skill-name">Ubuntu</span></div>
+                    <div class="skill-card"><i class="fab fa-centos skill-icon skill-linux"></i><span class="skill-name">CentOS</span></div>
+                    <div class="skill-card"><i class="fab fa-windows skill-icon skill-mysql"></i><span class="skill-name">Windows</span></div>
                 </div>
             </div>
 
-            <!-- Gestion de versions & Méthodologies -->
             <div class="skills-category">
                 <h3 class="category-title">Gestion de versions & Méthodologies</h3>
                 <div class="skills-grid">
-                    <div class="skill-card">
-                        <i class="fab fa-git-alt skill-icon skill-git"></i>
-                        <span class="skill-name">Git</span>
-                    </div>
-
-                    <div class="skill-card">
-                        <i class="fab fa-github skill-icon skill-git"></i>
-                        <span class="skill-name">GitHub</span>
-                    </div>
-
-                    <div class="skill-card">
-                        <i class="fas fa-tasks skill-icon skill-spring"></i>
-                        <span class="skill-name">Agile</span>
-                    </div>
-
-                    <div class="skill-card">
-                        <i class="fas fa-project-diagram skill-icon skill-spring"></i>
-                        <span class="skill-name">Scrum</span>
-                    </div>
-
-                    <div class="skill-card">
-                        <i class="fab fa-jira skill-icon skill-mysql"></i>
-                        <span class="skill-name">Jira</span>
-                    </div>
+                    <div class="skill-card"><i class="fab fa-git-alt skill-icon skill-git"></i><span class="skill-name">Git</span></div>
+                    <div class="skill-card"><i class="fab fa-github skill-icon skill-git"></i><span class="skill-name">GitHub</span></div>
+                    <div class="skill-card"><i class="fas fa-tasks skill-icon skill-spring"></i><span class="skill-name">Agile</span></div>
+                    <div class="skill-card"><i class="fas fa-project-diagram skill-icon skill-spring"></i><span class="skill-name">Scrum</span></div>
+                    <div class="skill-card"><i class="fab fa-jira skill-icon skill-mysql"></i><span class="skill-name">Jira</span></div>
                 </div>
             </div>
 
-            <!-- Conception -->
             <div class="skills-category">
                 <h3 class="category-title">Conception</h3>
                 <div class="skills-grid">
-                    <div class="skill-card">
-                        <i class="fas fa-project-diagram skill-icon skill-uml"></i>
-                        <span class="skill-name">UML</span>
-                    </div>
+                    <div class="skill-card"><i class="fas fa-project-diagram skill-icon skill-uml"></i><span class="skill-name">UML</span></div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <script src="../js/home.js"></script>
+    <script>
+        function toggleSidebar() { 
+            document.getElementById('sidebar').classList.toggle('active'); 
+        }
+        
+        document.querySelector('.menu').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('active');
+        });
+        
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav ul');
+            const menuBtn = document.querySelector('.menu');
+            if (!nav.contains(event.target) && !menuBtn.contains(event.target)) {
+                nav.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
